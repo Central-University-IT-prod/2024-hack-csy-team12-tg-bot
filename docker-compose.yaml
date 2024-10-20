@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - queue
+    environment:
+      - TOKEN = {{sensitive data}}
+
+  bot:
+    build:
+      context: ./bot
+      dockerfile: Dockerfile
+    networks:
+      - queue
+    environment:
+      - TOKEN = {{sensitive data}}
+
+
+networks:
+  queue:
+    driver: bridge
